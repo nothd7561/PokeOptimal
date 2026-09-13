@@ -45,4 +45,10 @@ def extract(link):
     smogon_frame = pd.DataFrame(desired_data) #makes a pandas df from the list of dictionaries
     return smogon_frame #returns the df to be used later
 
-print(extract(f'https://www.smogon.com/stats/2026-06/chaos/gen4ou-1500.json')) #diagnose problem where i dont see all names of pokemon
+monthly_data = []
+for url in monthly_urls:
+    extract(url)
+    monthly_data.append(extract(url))
+    #get the data from each month and append it to the list of monthly data, a total of 3 months
+
+#diagnose problem where i dont see all names of pokemon
