@@ -53,4 +53,25 @@ for url in monthly_urls:
     #monthly_data is a list of 3 dataframes, one for each month
 total_data = pd.concat(monthly_data, ignore_index=True) #combine the 3 months of data into one df
 
-print(total_data)
+total_data_average = total_data.groupby('Pokemon')['Usage'].mean().reset_index()
+for i, df in enumerate(smogon_monthly_data):
+    df['month_priority'] = i  # 0=Jan, 1=Dec, 2=Feb (higher = more recent)
+
+# tag each monthly df with its actual calendar month (string-sortable, e.g. "2026-08"), not list position
+for i, df in enumerate(monthly_data):
+    df['month_priority'] = monthly_urls[i].split('/')[4]
+
+# combine the tagged monthly frames, then sort so the most recent month comes first per Pokemon
+all_moveset_data = pd.concat(monthly_data, ignore_index=True).sort_values('month_priority', ascending=False)
+
+moveset_data = all_moveset_data.drop_duplicates(subset='Pokemon', keep='first')[["Pokemon", "Moves", "Items", "Abilities", "Teammates"]]
+#drop duplicates so we keep the only the most recent month for each Pokemon, and keep only the columns we want
+
+final_smogon = pd.merge(total_data_average, moveset_data, on="Pokemon")
+#merge the average data with the movest data to create a final df with all the data we want
+
+final_smogon.to_csv(BASE / 'fetch_smogon.csv', index=False)
+#converts the final df into a csv file and saves it to the base directory
+
+print("Csv file created successfully.")
+#print a message to let the user know the script has completed successfully
