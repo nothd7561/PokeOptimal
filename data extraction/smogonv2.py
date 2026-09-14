@@ -50,5 +50,7 @@ for url in monthly_urls:
     extract(url)
     monthly_data.append(extract(url))
     #get the data from each month and append it to the list of monthly data, a total of 3 months
+    #monthly_data is a list of 3 dataframes, one for each month
+total_data = pd.concat(monthly_data, ignore_index=True) #combine the 3 months of data into one df
 
-#diagnose problem where i dont see all names of pokemon
+print(total_data)
