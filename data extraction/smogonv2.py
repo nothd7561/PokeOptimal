@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from pathlib import Path
 #pandas for df cleaning and manipulation
 #requestes for extracting data from the web
 
@@ -54,7 +55,7 @@ for url in monthly_urls:
 total_data = pd.concat(monthly_data, ignore_index=True) #combine the 3 months of data into one df
 
 total_data_average = total_data.groupby('Pokemon')['Usage'].mean().reset_index()
-for i, df in enumerate(smogon_monthly_data):
+for i, df in enumerate(monthly_data):
     df['month_priority'] = i  # 0=Jan, 1=Dec, 2=Feb (higher = more recent)
 
 # tag each monthly df with its actual calendar month (string-sortable, e.g. "2026-08"), not list position
@@ -70,7 +71,7 @@ moveset_data = all_moveset_data.drop_duplicates(subset='Pokemon', keep='first')[
 final_smogon = pd.merge(total_data_average, moveset_data, on="Pokemon")
 #merge the average data with the movest data to create a final df with all the data we want
 
-final_smogon.to_csv(BASE / 'fetch_smogon.csv', index=False)
+final_smogon.to_csv(f'C:\\Users\\lucas\\Downloads\\personal coding\\pokemon optimizer v2\\data extraction\\fetch_smogon.csv', index=False)
 #converts the final df into a csv file and saves it to the base directory
 
 print("Csv file created successfully.")
