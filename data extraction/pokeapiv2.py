@@ -17,9 +17,11 @@ def extract_pokeapi(name):
 
     api_link = requests.get(f'https://pokeapi.co/api/v2/pokemon/{name}')
     if api_link.status_code == 200:
+        #if the request is successful, return the json data from the api
         return api_link.json()
     else:
         return None
+        #if the request is unsuccessful, return None
     #returns the json format for each pokemon, which is a dictionary with all the data we want to extract
     #for each name, put substitute it in the api link to get the data for that specific pokemon
 
