@@ -14,3 +14,5 @@ merged_normalized['special_defense_normalized'] = ((merged_normalized['Special D
 merged_normalized['speed_normalized'] = ((merged_normalized['Speed'] - merged_normalized['Speed'].min()) / (merged_normalized['Speed'].max() - merged_normalized['Speed'].min()))
 #used the normalization formula to normalize the base stats for each pokemon
 #created new columns for each stat to store the normalized values, keep the base stats for user knowledge and maybe IV/EV spreads
+
+normalized_csv = merged_normalized.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\fixing stats\data_merged_normalized.csv', index=False)
