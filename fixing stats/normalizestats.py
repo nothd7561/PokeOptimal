@@ -15,4 +15,13 @@ merged_normalized['speed_normalized'] = ((merged_normalized['Speed'] - merged_no
 #used the normalization formula to normalize the base stats for each pokemon
 #created new columns for each stat to store the normalized values, keep the base stats for user knowledge and maybe IV/EV spreads
 
+merged_normalized['hp_tier'] = pd.qcut(merged_normalized['HP'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+merged_normalized['attack_tier'] = pd.qcut(merged_normalized['Attack'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+merged_normalized['defense_tier'] = pd.qcut(merged_normalized['Defense'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+merged_normalized['special_attack_tier'] = pd.qcut(merged_normalized['Special Attack'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+merged_normalized['special_defense_tier'] = pd.qcut(merged_normalized['Special Defense'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+merged_normalized['speed_tier'] = pd.qcut(merged_normalized['Speed'], q=4, labels=['Low', 'Medium', 'High', 'Very High'])
+#assign each pokemon's base stats a tier based on the quartiles of the base stat distribution, with 4 tiers: Low, Medium, High, Very High
+
+
 normalized_csv = merged_normalized.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\fixing stats\data_merged_normalized.csv', index=False)
