@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 from pathlib import Path
+####  1
 #pandas for df cleaning and manipulation
 #requestes for extracting data from the web
 
@@ -55,6 +56,7 @@ for url in monthly_urls:
 total_data = pd.concat(monthly_data, ignore_index=True) #combine the 3 months of data into one df
 
 total_data_average = total_data.groupby('Pokemon')['Usage'].mean().reset_index()
+#averaged the usage rate for each pokemon across the 3 seasons
 for i, df in enumerate(monthly_data):
     df['month_priority'] = i  # 0=Jan, 1=Dec, 2=Feb (higher = more recent)
 

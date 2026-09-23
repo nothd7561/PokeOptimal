@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 import time
-
+ #####  2
 
 csv_in = r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\data extraction\fetch_smogon.csv'
 #store the msogon csv file in a variable to be used later
