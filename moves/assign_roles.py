@@ -7,5 +7,10 @@ input_moves_list_csv = pd.read_csv(r'C:\Users\lucas\Downloads\personal coding\po
 #read the csv generated the chatGPT into a dataframe
 
 binary_matrix = input_moves_list_csv['category'].str.get_dummies(sep=',')
+#turns the dataframe into a wide, binary matrix
+
+binary_matrix.index = input_moves_list_csv['move']
+#set moves as the index of the df
+
 print(binary_matrix)
 
