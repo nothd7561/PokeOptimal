@@ -6,11 +6,14 @@ import pandas as pd
 input_moves_list_csv = pd.read_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\made_outside_of_coding\all_moves_categorized_multicategory.csv')
 #read the csv generated the chatGPT into a dataframe
 
-binary_matrix = input_moves_list_csv['category'].str.get_dummies(sep=',')
-#turns the dataframe into a wide, binary matrix
+category_moves = {}
 
-binary_matrix.index = input_moves_list_csv['move']
-#set moves as the index of the df
+for _, row in input_moves_list_csv.iterrows():
+    move = row['move']
+    categories = row['category'].split(',')  # splits "has_recovery,has_setup" into ["has_recovery", "has_setup"]
 
-print(binary_matrix)
-
+    for category in categories:
+        if category not in category_moves:
+            category_moves[category] = []
+        category_moves[category].append(move)
+print(category_moves)

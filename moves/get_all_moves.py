@@ -26,4 +26,4 @@ move_set = set(move_list)
 move_list_df = pd.DataFrame(move_set, columns=['Moves'])
 #make move_list a set to remove duplicates and print it to the console for testing purposes
 #convert to df for csv in the future
-move_list_df.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\assignments\all_moves.csv', index=False)
+move_list_df.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\all_moves.csv', index=False)
