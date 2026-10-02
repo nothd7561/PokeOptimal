@@ -27,17 +27,32 @@ for _, row in input_moves_list_csv.iterrows():
         category_moves[category].append(move)
         #append the move associated with that category as the value to that category
 
+all_categories = {}
+for key,value in category_moves.items():
+    all_categories[key] = 0
+
 
 moves = input_pokemon_info['Moves']
 #create a moves variable that stores the Moves column of the df, which is a pandas series
 moves = moves.tolist()
 #convert the series into a list for iteration
 
+
+
 move_dict = {}
 
 for _, row in input_pokemon_info.iterrows():
     pokemon_name = row['Pokemon']
     parsed_moves = ast.literal_eval(row['Moves'])
+    #converts each move string into a dict
     move_dict[pokemon_name] = parsed_moves
+    #stores the pokemon name as key, the mvoes and usage rate as value
 
-print(move_dict)
+binary_roles = {}
+for key, value in move_dict.items():
+    binary_roles[key] = all_categories
+                
+
+
+print(binary_roles)
+print(all_categories)
