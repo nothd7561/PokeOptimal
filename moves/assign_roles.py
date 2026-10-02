@@ -27,17 +27,18 @@ for _, row in input_moves_list_csv.iterrows():
         category_moves[category].append(move)
         #append the move associated with that category as the value to that category
 
+del category_moves['none']
+#delete the none category, it's unhelpful for the final role assignment
 all_categories = {}
 for key,value in category_moves.items():
     all_categories[key] = 0
-
+    
+#make a dictionary with all the categories as keys, and 0 as the value to use later for cross checking
 
 moves = input_pokemon_info['Moves']
 #create a moves variable that stores the Moves column of the df, which is a pandas series
 moves = moves.tolist()
 #convert the series into a list for iteration
-
-
 
 move_dict = {}
 
@@ -50,9 +51,21 @@ for _, row in input_pokemon_info.iterrows():
 
 binary_roles = {}
 for key, value in move_dict.items():
-    binary_roles[key] = all_categories
-                
+    binary_roles[key] = dict(all_categories)
+    #create a copy of the all_categories dict, to prevent all pokemon from sharing the same dictionary
+
+for pokemon, pokemon_moves in move_dict.items():
+    qualified_moves = {move for move, usage_rate in pokemon_moves.items() if usage_rate >= 0.25}
+    #for each pokemon, check it's moves. They are qualified if they are above the threshold of 0.25 usage rate.
+    #we use a set because the same move can show up in multiple pokemons movesets
+
+    for move_category, moves_in_category in category_moves.items():
+        for pokemon_move in qualified_moves:
+            if pokemon_move in moves_in_category:
+                binary_roles[pokemon][move_category] = 1
 
 
+
+
+              
 print(binary_roles)
-print(all_categories)
