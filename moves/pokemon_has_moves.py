@@ -49,9 +49,9 @@ for _, row in input_pokemon_info.iterrows():
     move_dict[pokemon_name] = parsed_moves
     #stores the pokemon name as key, the mvoes and usage rate as value
 
-role_assignment = {}
+move_assignment = {}
 for key, value in move_dict.items():
-    role_assignment[key] = dict(all_categories)
+    move_assignment[key] = dict(all_categories)
     #create a copy of the all_categories dict, to prevent all pokemon from sharing the same dictionary
 
 for pokemon, pokemon_moves in move_dict.items():
@@ -62,19 +62,19 @@ for pokemon, pokemon_moves in move_dict.items():
     for move_category, moves_in_category in category_moves.items():
         for pokemon_move in qualified_moves:
             if pokemon_move in moves_in_category:
-                role_assignment[pokemon][move_category] = 1
+                move_assignment[pokemon][move_category] = 1
     #looped over each move category, for each one, we looped over the moves in the qualified moves dict
     #then if the qualified move was also in the values for moves in said category, then we give the move_category value for said pokemon a 1
     #we're using binary values for the role assignments later for optimization portion
 
-role_assignment_df = pd.DataFrame(role_assignment).T.reset_index()
+move_assignment_df = pd.DataFrame(move_assignment).T.reset_index()
 #turn the dict into a dataframe so we could merge with the previous dataframe later on
 #use transpose to flip rows and columns, making pokemon as the rows and categories as columns to match merged_csv
 #reset index so that pokemon names arent the index
-role_assignment_df = role_assignment_df.rename(columns={'index':'Pokemon'})
+move_assignment_df = move_assignment_df.rename(columns={'index':'Pokemon'})
 #since reset index sets the pokemon column name to index, rename it to Pokemon to match merged csv
 
-final_role_assignment = pd.merge(input_pokemon_info, role_assignment_df, on='Pokemon')
+final_move_assignment = pd.merge(input_pokemon_info, move_assignment_df, on='Pokemon')
+final_move_assignment.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\'pokemon_has_moves.csv')
 
               
-print(final_role_assignment)
