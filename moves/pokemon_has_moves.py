@@ -75,6 +75,6 @@ move_assignment_df = move_assignment_df.rename(columns={'index':'Pokemon'})
 #since reset index sets the pokemon column name to index, rename it to Pokemon to match merged csv
 
 final_move_assignment = pd.merge(input_pokemon_info, move_assignment_df, on='Pokemon')
-final_move_assignment.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\'pokemon_has_moves.csv')
+final_move_assignment.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\pokemon_has_moves.csv', index=False)
 
               
