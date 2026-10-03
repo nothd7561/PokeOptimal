@@ -6,7 +6,7 @@ import ast
 input_moves_list_csv = pd.read_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\made_outside_of_coding\all_moves_categorized_multicategory.csv')
 #read the csv generated the chatGPT into a dataframe
 
-input_pokemon_info = pd.read_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\data extraction\data_merged.csv')
+input_pokemon_info = pd.read_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\fixing stats\data_merged_normalized.csv')
 #read the merged csv so that we can cross check the moves
 
 category_moves = {}
@@ -76,5 +76,6 @@ move_assignment_df = move_assignment_df.rename(columns={'index':'Pokemon'})
 
 final_move_assignment = pd.merge(input_pokemon_info, move_assignment_df, on='Pokemon')
 final_move_assignment.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\pokemon_has_moves.csv', index=False)
+#remove the index column to match previous structure
 
               
