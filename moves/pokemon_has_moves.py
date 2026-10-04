@@ -29,6 +29,12 @@ for _, row in input_moves_list_csv.iterrows():
 
 del category_moves['none']
 #delete the none category, it's unhelpful for the final role assignment
+
+# ADDED: Trick Room as its own category
+category_moves.setdefault('has_trick_room', [])
+if 'Trick Room' not in category_moves['has_trick_room']:
+    category_moves['has_trick_room'].append('Trick Room')
+
 all_categories = {}
 for key,value in category_moves.items():
     all_categories[key] = 0
@@ -49,13 +55,19 @@ for _, row in input_pokemon_info.iterrows():
     move_dict[pokemon_name] = parsed_moves
     #stores the pokemon name as key, the mvoes and usage rate as value
 
+# ADDED: check how Trick Room is spelled in your data (should print ['Trick Room'])
+all_moves_in_data = {m for d in move_dict.values() for m in d}
+print([m for m in all_moves_in_data if 'trick' in m.lower()])
+
 move_assignment = {}
 for key, value in move_dict.items():
     move_assignment[key] = dict(all_categories)
     #create a copy of the all_categories dict, to prevent all pokemon from sharing the same dictionary
 
+THRESHOLDS = {'Trick Room': 0.10}  # ADDED: per-move cutoff overrides, everything else uses 0.25
+
 for pokemon, pokemon_moves in move_dict.items():
-    qualified_moves = {move for move, usage_rate in pokemon_moves.items() if usage_rate >= 0.25}
+    qualified_moves = {move for move, usage_rate in pokemon_moves.items() if usage_rate >= THRESHOLDS.get(move, 0.25)}  # CHANGED: 0.25 -> THRESHOLDS.get(move, 0.25)
     #for each pokemon, check it's moves. They are qualified if they are above the threshold of 0.25 usage rate.
     #we use a set because the same move can show up in multiple pokemons movesets
 
@@ -78,4 +90,5 @@ final_move_assignment = pd.merge(input_pokemon_info, move_assignment_df, on='Pok
 final_move_assignment.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\moves\pokemon_has_moves.csv', index=False)
 #remove the index column to match previous structure
 
-              
+# ADDED: sanity check
+print("Pokemon with Trick Room:", int(final_move_assignment['has_trick_room'].sum()))

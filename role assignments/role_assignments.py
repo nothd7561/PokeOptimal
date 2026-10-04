@@ -70,6 +70,11 @@ ROLE_CONFIG = {
         "stats_any": [("defense", ["Low", "Medium"]), ("special_defense", ["Low", "Medium"])],
         "moves": ["has_hazards"]
     },
+    "Trick Room Setter": {
+    "stats_all": [("speed", ["Low", "Medium"])],
+    "stats_any": [],
+    "moves": ["has_speed_control"]
+}
 }
 
 def check_role_req(pokemon_data, role_requirements):
@@ -100,4 +105,4 @@ for _, row in input_moves_df.iterrows():
 
 role_results_df = pd.DataFrame.from_dict(role_results, orient='index')
 final_role_assignment_df = pd.merge(input_moves_df, role_results_df, left_on='Pokemon', right_index=True)
-final_role_assignment_df.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\role assignments\final_role_assignment.csv', index=False)
+final_role_assignment_df.to_csv(r'C:\Users\lucas\Downloads\personal coding\pokemon optimizer v2\role assignments\final_role_assignment(1).csv', index=False)
