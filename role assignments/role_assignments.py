@@ -71,11 +71,17 @@ ROLE_CONFIG = {
         "moves": ["has_hazards"]
     },
     "Trick Room Setter": {
-    "stats_all": [("speed", ["Low", "Medium"])],
-    "stats_any": [],
-    "moves": ["has_speed_control"]
+        "stats_all": [("speed", ["Low", "Medium"])],
+        "stats_any": [],
+        "moves": ["has_speed_control"],
+    },
+    'Weather Abuse': {
+        "stats_all": [],
+        "stats_any": [],
+        "moves": ["has_weather"]
+    }
 }
-}
+
 
 def check_role_req(pokemon_data, role_requirements):
     for stat, acceptable_tiers in role_requirements['stats_all']:
